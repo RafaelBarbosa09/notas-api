@@ -1,13 +1,10 @@
-import IActivityRepository from "../repositories/IActivityRepository";
 import INoteRepository from "../repositories/INoteRepository";
 
 export default class NoteService {
     private repository: INoteRepository;
-    private activityRepository: IActivityRepository;
 
-    constructor(repository: INoteRepository, activityRepository: IActivityRepository) {
+    constructor(repository: INoteRepository) {
         this.repository = repository;
-        this.activityRepository = activityRepository;
     }
 
     public async updateNote(note: Note): Promise<Note> {
@@ -35,7 +32,7 @@ export default class NoteService {
         return await this.repository.save(note);
     }
 
-    public async consumeActivities(ativities: Activity[]): Promise<Activity[]> {
-        return await this.activityRepository.populateActivities(ativities);
+    public async getNoteByActivityId(activityId: string): Promise<Note> {
+        return await this.repository.getByActivityId(activityId);
     }
 }
