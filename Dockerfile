@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3001
 
-CMD ["npm", "run", "run-container"]
+CMD ["npm", "run", "dev"]
