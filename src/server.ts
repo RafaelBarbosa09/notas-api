@@ -28,15 +28,16 @@ app.get('/notes/consume', async (req, res) => {
     res.json(list);
 });
 
-app.post('/notes', async (req, res) => {
+app.post('/notes/assign', async (req, res) => {
     const { activityId, courseId, studentId, value } = req.body;
 
     try {
-        const note = await noteService.assignNote({ activityId, courseId, studentId, value });
-        if (!note) {
-            throw new Error('Erro ao criar nota');
+        const noteAssigned = await noteService.getNoteByActivityId(activityId);
+        if (noteAssigned) {
+            throw new Error('Nota já atribuída para essa atividade');
         }
 
+        const note = await noteService.assignNote({ activityId, courseId, studentId, value });
         res.status(201).json(note);
     } catch (error: any) {
         res.status(400).json({ error: error.message });
