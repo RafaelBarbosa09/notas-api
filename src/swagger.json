@@ -1,1 +1,240 @@
-{}
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "notas",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/notes": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Note"
+                                    }
+                                },
+                                "examples": {
+                                    "Notes": {
+                                        "value": [
+                                            {
+                                                "activityId": "95f7449b-cd3a-4df3-a93b-e843da4337ac",
+                                                "courseId": "af52d069-43aa-40f8-a34b-c029eecfd7b8",
+                                                "studentId": "123",
+                                                "value": 10
+                                            },
+                                            {
+                                                "activityId": "84c9ee7a-23e1-4604-ae1b-853a5b5aa83a",
+                                                "courseId": "af52d069-43aa-40f8-a34b-c029eecfd7b8",
+                                                "studentId": "123",
+                                                "value": 10
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "description": "notes"
+                    }
+                },
+                "description": "Retorna todas as notas cadastradas."
+            }
+        },
+        "/notes/assign": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Note"
+                            },
+                            "examples": {
+                                "Assign": {
+                                    "value": {
+                                        "activityId": "84c9ee7a-23e1-4604-ae1b-853a5b5aa83a",
+                                        "courseId": "af52d069-43aa-40f8-a34b-c029eecfd7b8",
+                                        "studentId": "123",
+                                        "value": 10
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Note"
+                                },
+                                "examples": {
+                                    "Assign": {
+                                        "value": {
+                                            "activityId": "84c9ee7a-23e1-4604-ae1b-853a5b5aa83a",
+                                            "courseId": "af52d069-43aa-40f8-a34b-c029eecfd7b8",
+                                            "studentId": "123",
+                                            "value": 10
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Corrige uma atividade."
+                    }
+                },
+                "description": "Corrige uma atividade."
+            }
+        },
+        "/notes/consume": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Note"
+                                    }
+                                },
+                                "examples": {
+                                    "Notes": {
+                                        "value": [
+                                            {
+                                                "id": "84c9ee7a-23e1-4604-ae1b-853a5b5aa83a",
+                                                "idStudent": "9ef18609-056c-4f6f-9d09-6893fbe06517",
+                                                "idCourse": "af52d069-43aa-40f8-a34b-c029eecfd7b8",
+                                                "deadline": "2022-09-29T00:00:00.000Z",
+                                                "question": "Quanto é 2 + 2 ?",
+                                                "answer": "a resposta é 4",
+                                                "submissionDate": "2022-10-03T02:45:51.913Z"
+                                            },
+                                            {
+                                                "id": "95f7449b-cd3a-4df3-a93b-e843da4337ac",
+                                                "idStudent": "9ef18609-056c-4f6f-9d09-6893fbe06517",
+                                                "idCourse": "af52d069-43aa-40f8-a34b-c029eecfd7b8",
+                                                "deadline": "2022-09-29T00:00:00.000Z",
+                                                "question": "Quanto é 2 + 2 ?",
+                                                "answer": "a resposta é 4",
+                                                "submissionDate": "2022-10-03T02:46:03.377Z"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Notes"
+                    }
+                },
+                "description": "Consome as atividades da fila."
+            }
+        },
+        "/notes/{studentId}": {
+            "get": {
+                "parameters": [
+                    {
+                        "examples": {
+                            "studentId": {
+                                "value": "\"123\""
+                            }
+                        },
+                        "name": "studentId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Note"
+                                    }
+                                },
+                                "examples": {
+                                    "Notes": {
+                                        "value": [
+                                            {
+                                                "activityId": "95f7449b-cd3a-4df3-a93b-e843da4337ac",
+                                                "courseId": "af52d069-43aa-40f8-a34b-c029eecfd7b8",
+                                                "studentId": "123",
+                                                "value": 10
+                                            },
+                                            {
+                                                "activityId": "84c9ee7a-23e1-4604-ae1b-853a5b5aa83a",
+                                                "courseId": "af52d069-43aa-40f8-a34b-c029eecfd7b8",
+                                                "studentId": "123",
+                                                "value": 10
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Busca todas as notas de um determinado aluno"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Note": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "activityId": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "courseId": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "studentId": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "value": {
+                        "format": "double",
+                        "description": "",
+                        "type": "number"
+                    }
+                }
+            },
+            "Correcao": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "activityId": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "courseId": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "studentId": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "value": {
+                        "format": "double",
+                        "description": "",
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    }
+}

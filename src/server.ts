@@ -13,6 +13,10 @@ const noteService = new NoteService(new NoteRepository());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(bodyParser.json());
 
+/**
+ * @summary consome atividades da fila
+ * @returns {Array} activities
+ */
 app.get('/notes/consume', async (req, res) => {
     const server = new RabbitmqServer('amqp://guest:guest@localhost:5672')
     await server.start();
@@ -28,6 +32,11 @@ app.get('/notes/consume', async (req, res) => {
     res.json(list);
 });
 
+/**
+ * @param {string} idStudent
+ * @returns {Array} notes
+ * @summary Corrige uma atividade.
+ */
 app.post('/notes/assign', async (req, res) => {
     const { activityId, courseId, studentId, value } = req.body;
 
@@ -44,11 +53,20 @@ app.post('/notes/assign', async (req, res) => {
     }
 });
 
+/**
+ * @returns {Array} notes
+ * @summary retorna todas as notas.
+ */
 app.get('/notes', async (req, res) => {
     const notes = await noteService.getAllNotes();
     res.json(notes);
 });
 
+/**
+ * @param {string} idStudent
+ * @returns {Array} notes
+ * @summary Retorna todas as notas de um estudante
+ */
 app.get('/notes/:id', async (req, res) => {
     const { id } = req.params;
 
